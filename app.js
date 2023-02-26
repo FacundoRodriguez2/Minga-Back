@@ -23,5 +23,4 @@ app.use(cors())
 //routes
 app.use('/', indexRouter)
 
-
 export default app
