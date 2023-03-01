@@ -16,6 +16,6 @@ const authorSchema = new mongoose.Schema(
 
 
 
-let Author = mongoose.model("authors", authorSchema)
+let AuthorSchema = mongoose.model("authors", authorSchema)
 
- export default Author
+ export default AuthorSchema
