@@ -1,33 +1,19 @@
 import express from 'express'
-import User from "../models/User.js"
+import controller from '../controllers/auth/auth.js'
+import validator from '../middlewares/validator.js'
+import schemaSignUp from '../schemas/users/usersSignUp.js'
+import schemaSignIn from '../schemas/users/usersSignIn.js'
+import accountExistsSignUp from '../middlewares/accountExistsSignUp.js'
+import accountExistsSignIn from '../middlewares/accountExistsSignIn.js'
+import accountHasBeenVerified from '../middlewares/accountHasBeenVerified.js'
+import passwordIsOk from '../middlewares/passwordIsOk.js'
+
+const { sign_up, sign_in } = controller
+
 let router = express.Router()
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('aca tendrian que estar los usuarios');
-});
-router.post('/', async (req,res) => {
-  try{
-    req.body.is_online = false
-    req.body.is_admin = false
-    req.body.is_author = false
-    req.body.is_company = false
-    req.body.is_verified = false
-    req.body.verify_code = "acvnewi92emodsqisj129mxskal2121wsaz"
-    let user = await User.create(req.body)
-    return res.status(201).json({
-      success: true,
-      user: user,
-      id: user._id
-    })
-  } catch(error){
-    console.log(error)
-    return res.status(400).json({
-      success: false,
-      message: 'no se pudo crear',
-      body: req.body
-    })
-  }
-})
+router.post('/signup', validator(schemaSignUp),accountExistsSignUp, sign_up)
+router.post('/signin', validator(schemaSignIn),accountExistsSignIn, accountHasBeenVerified, passwordIsOk, sign_in)
+
 
 export default router
