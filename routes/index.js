@@ -1,4 +1,5 @@
 import express from 'express'
+import authors from "./authors.js"
 import userRouter from './users.js'
 let router = express.Router()
 
@@ -8,6 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/users',userRouter)
+router.use("/authors", authors)
 
 
 export default router
