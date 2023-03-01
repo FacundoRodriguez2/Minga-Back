@@ -4,7 +4,7 @@ import Chapter from '../models/Chapter.js'
 let router = express.Router();
 
 router.get('/', function (req, res, next) {
-    res.send('aca tendrian que estar los capitulos');
+    res.send('chapters here');
 });
 
 router.post('/', async (req, res) => {
@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
         console.log(error)
         return res.status(400).json({
             success: false,
-            message: 'no se pudo crear',
+            message: 'fail to create',
             body: req.body
         })
     }
