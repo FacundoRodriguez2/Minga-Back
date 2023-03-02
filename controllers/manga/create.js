@@ -1,4 +1,4 @@
-import Manga from "../../models/Manga";
+import Manga from "../../models/Manga.js";
 
 const controller = {
     create: async (req, res) => {

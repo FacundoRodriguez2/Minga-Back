@@ -8,6 +8,6 @@ router.get("/", async (req, res) => {
   return res.status(200).send("Pagina de mangas");
 });
 
-router.post("/",passport.authenticate('jwt', { session: false }) ,create) 
+router.post("/", passport.authenticate('jwt', { session: false }) ,create) 
 
 export default router;
