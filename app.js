@@ -1,31 +1,28 @@
-import express from "express"; //metodos de express para configurar y levantar servidores
-import "dotenv/config.js";
-import "./config/database.js";
-import path from "path"; //metodos para trabajar con rutas de archivos y directorios
-import cookieParser from "cookie-parser";
-import logger from "morgan"; //middleware que registra peticiones y errores HTTP
-import indexRouter from "./routes/index.js"; //rutas de index
-import { __dirname } from "./utils.js"; //direccion de la carpeta raíz del proyecto
-import cors from "cors";
-import { errorHandler } from "./middlewares/errorHandler.js";
-import { notFoundHandler } from "./middlewares/notFoundHandler.js";
-const app = express(); //método para levantar un servidor
+import express from 'express'
+import 'dotenv/config.js'
+import './config/database.js'
+import path from 'path'
+import cookieParser from 'cookie-parser'
+import logger from 'morgan'
+import indexRouter from './routes/index.js'
+import { __dirname } from './utils.js'
+import cors from 'cors'
+import { errorHandler } from './middlewares/errorHandler.js'
+import { notFoundHandler } from './middlewares/notFoundHandler.js'
+const app = express() 
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
-//middlewares
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
+app.use(logger('dev'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(cors())
+app.use('/api', indexRouter)
+app.use(errorHandler)
+app.use(notFoundHandler)
 
-//routes
-app.use("/", indexRouter);
-app.use(notFoundHandler);
-app.use(errorHandler);
 
 export default app
