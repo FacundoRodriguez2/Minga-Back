@@ -1,10 +1,8 @@
 import { Author } from "../../models/Author.js"
 import { Manga } from "../../models/Manga.js"
 
-const canEdit = async (req, res, next) => {
-
-    if(req.user.is_author){
-        const author = await Author.findOne({user_id: req.user.id})
+const controller = async (req, res, next) => {
+        const author = await Author.findOne({user_id: req.user._id})
         const mangaFind = await Manga.findById(req.params.id)
 
         if(!mangaFind.author_id.equals(author._id)){
@@ -15,8 +13,7 @@ const canEdit = async (req, res, next) => {
                 body: req.body
               })            
         }
-    }
     return next()
 }
 
-export default canEdit
+export default controller
