@@ -7,6 +7,8 @@ import logger from "morgan"; //middleware que registra peticiones y errores HTTP
 import indexRouter from "./routes/index.js"; //rutas de index
 import { __dirname } from "./utils.js"; //direccion de la carpeta raíz del proyecto
 import cors from "cors";
+import { errorHandler } from "./middlewares/errorHandler.js";
+import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 const app = express(); //método para levantar un servidor
 
 // view engine setup
@@ -20,7 +22,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
+
 //routes
 app.use("/", indexRouter);
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export default app;

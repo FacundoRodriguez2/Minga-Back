@@ -11,18 +11,18 @@ import http from 'http'
 /**
  * Get port from environment and store in Express.
  */
-let port = normalizePort(process.env.PORT || '8080')
+const port = normalizePort(process.env.PORT || '8080')
 app.set('port', port)
 
 /**
  * Create HTTP server.
  */
-let server = http.createServer(app)
+const server = http.createServer(app)
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port,()=>console.log('server ready on port '+port))
+server.listen(port,()=>console.log(`server ready on port ${port}`))
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -71,8 +71,8 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-  var addr = server.address()
-  var bind = typeof addr === 'string'
+  let addr = server.address()
+  let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   logger('Listening on ' + bind);
