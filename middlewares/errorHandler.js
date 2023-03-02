@@ -1,5 +1,5 @@
 export const errorHandler = (error, req, res, next) => {
-    console.error(error.stack)
+    console.error(error)
     return res.status(500).json({
         success: false,
         method: req.method,

@@ -2,8 +2,9 @@ import Joi from 'joi'
 
 const schema = Joi.object({
     name: Joi
-    .string()
-    .required(),
+        .string()
+        .required()
+        .min(3),
     mail: Joi
         .string()
         .required()

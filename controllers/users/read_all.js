@@ -1,6 +1,6 @@
 const controller = {
     read_all: function (req, res, next) {
-        res.send('aca tendrian que estar los usuarios');
+        res.json({message: 'aca tendrian que estar los usuarios'});
     }
 }
 
