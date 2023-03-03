@@ -12,7 +12,7 @@ passport.use(
             try {
                 let user = await User.findOne({ _id: jwt_payload.id })
                 if (user) {
-                    user = user._id, user.name, user.mail
+                    user.password = null
                     return done(null, user)
                 } else {
                     return done(null, false)

@@ -21,8 +21,8 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors())
 app.use('/api', indexRouter)
-app.use(errorHandler)
 app.use(notFoundHandler)
+app.use(errorHandler)
 
 
 export default app
