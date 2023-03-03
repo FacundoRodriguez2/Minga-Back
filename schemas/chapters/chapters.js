@@ -14,16 +14,23 @@ const schema = Joi.object({
     pages: Joi
         .array().items(Joi.string().uri())
         .required()
-        .min(1),
+        .min(1)
+        .messages({
+            'array.empty':'pages cannot be empty',
+            'string.min': 'pages must be at least 1 characteres',
+            'any.required': 'pages is required',
+        }),
     manga_id: Joi
         .string()
-        .required(),
-    
+        .required()
+        .messages({
+            'string.empty': 'the title cannot be empty',
+            'any.required': 'the title is required',
+        }),
     cover_photo: Joi
         .string(),
-    
     timestamps: Joi
         .string(),
-})
+        })
 
 export default schema

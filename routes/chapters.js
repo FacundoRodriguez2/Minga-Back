@@ -1,7 +1,5 @@
 import express from 'express'
-import Chapter from '../models/Chapter.js'
-import read_all_chapters from '../controllers/chapters/readAll.js'
-import controller from '../controllers/chapters/create.js';
+import createController from '../controllers/chapters/create.js';
 import Schema from '../schemas/chapters/chapters.js'
 import validator from '../middlewares/validator.js';
 import nextOrder from '../middlewares/chapters/next_order.js';
@@ -12,11 +10,8 @@ let router = express.Router();
 
 
 
-const {read_all}=read_all_chapters
-const {create}=controller
+const {create}=createController
 
-
-router.get('/', read_all);
 
 router.post('/',passport.authenticate('jwt',{session:false}),validator(Schema),existsOrder,nextOrder,addFrontPhoto,create )
 
