@@ -27,8 +27,6 @@ const schema = Joi.object({
             'string.empty': 'the title cannot be empty',
             'any.required': 'the title is required',
         }),
-    cover_photo: Joi
-        .string(),
     timestamps: Joi
         .string(),
         })
