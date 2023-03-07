@@ -1,9 +1,10 @@
-import mongoose from "mongoose"
+import mongoose, { Schema } from "mongoose"
 
 let schema = new mongoose.Schema({
     name:{type:String,required:true},
     mail: { type: String, required: true },
     password: { type: String, required: true },
+    photo: {type: String, required: true},
     is_online: { type: Boolean },
     is_admin: { type: Boolean },
     is_author: { type: Boolean },
