@@ -7,7 +7,7 @@ const get_author= {
     console.log(id)
     try {
         let author = await Author.find({_id: id}, "-_id -user_id")
-        if (author) {
+        if (author.length > 0) {
             res.status(200).json({
                 success: true,
                 response: author,
