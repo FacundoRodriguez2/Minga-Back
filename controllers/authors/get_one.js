@@ -1,7 +1,7 @@
-import { Author } from "../../models/Author.js"
+import  Author  from "../../models/Author.js"
 
 
-const get_one= { 
+const get_author= { 
     get_one:  async (req, res, next) => {
     const { id } = req.params
     console.log(id)
@@ -24,4 +24,4 @@ const get_one= {
   }
 }
 
-export default get_one
+export default get_author

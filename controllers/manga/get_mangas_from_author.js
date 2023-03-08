@@ -1,6 +1,6 @@
-import { Manga } from "../../models/Manga.js"
+import Manga from "../../models/Manga.js"
 
-const get_mangas_from_author= {
+const get_mangas= {
 
     get_mangas_from_author: async (req, res, next) => {
         try {
@@ -11,9 +11,9 @@ const get_mangas_from_author= {
 
             let mangasLength = 0;
 
-            if (req.query.author_id) {
-                query.author_id = req.query.author_id
-                const mangasPerAuthor = await Manga.countDocuments({ author_id: req.query.author_id });
+            if (req.params.author_id) { 
+                query.author_id = req.params.author_id 
+                const mangasPerAuthor = await Manga.countDocuments({ author_id: req.params.author_id });
                 mangasLength = mangasPerAuthor
                 console.log(mangasLength)
             }
@@ -35,4 +35,4 @@ const get_mangas_from_author= {
     },
 }
 
-export default get_mangas_from_author
+export default get_mangas
