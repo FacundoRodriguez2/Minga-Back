@@ -4,7 +4,7 @@ let schema = new mongoose.Schema(
     {
         name: {type: String, required: true},
         detail: {type: String},
-        admin_id: {type: String, required: true},
+        admin_id:{ type: mongoose.Types.ObjectId, required: true }
     },
     {
         timestamps: true
