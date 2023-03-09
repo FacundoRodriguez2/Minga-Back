@@ -1,17 +1,15 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
-const companySchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
-        name: { type: String, required: true},
+        name: { type: String, required: true },
         logo: { type: String, required: true },
         website: { type: String, required: true },
         description: { type: String, required: true },
-        user_id: { type: mongoose.Schema.Types.ObjectId, required: true,ref: "users" },
-        active: { type: Boolean, required: true },
-    },
-    { timestamps: true }
+        user_id: { type: mongoose.Types.ObjectId, ref: 'users', required: true }
+    },{
+        timestamps: true
+    }
 )
 
-let Company = mongoose.model("companies", companySchema)
-
-export default Company
+export const Company = mongoose.model('companies', schema)
