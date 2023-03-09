@@ -5,7 +5,7 @@ const controller = {
         try {
             let all = await Category.find()
             if (all) {
-                return res.status(200).json({
+               return res.status(200).json({
                     success: true,
                     message: "All categories",
                     categories: all
