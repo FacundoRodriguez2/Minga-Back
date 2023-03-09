@@ -29,5 +29,5 @@ let categories = [
         admin_id: "63f68421579b89efdaef08c1"
     }
 ];
-﻿
+
 Category.insertMany(categories)
