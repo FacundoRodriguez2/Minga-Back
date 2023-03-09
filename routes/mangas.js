@@ -1,7 +1,9 @@
 import express from "express";
 import createcontroller from "../controllers/manga/create.js"
 import showcontroller from "../controllers/categories/show.js"
-import existsTittle from "../middlewares/exists_tittle.js"
+import validator from "../middlewares/validator.js";
+import schema from "../schemas/mangas/mangas.js"
+import existsTitle from "../middlewares/exists_title.js"
 import passport from "../middlewares/passport.js";
 import get_mangas from "../controllers/manga/get_mangas_from_author.js"
 import get_manga from '../controllers/manga/get_one.js'
@@ -13,7 +15,7 @@ const {get_one}=get_manga
 const { get_mangas_from_author } = get_mangas
 
 router.get("/", show)
-router.post("/", passport.authenticate('jwt', { session: false }), existsTittle ,create)
+router.post("/", passport.authenticate('jwt', { session: false }), validator(schema), existsTittle ,create)
 router.get(
     "/authors/:author_id", 
     passport.authenticate("jwt", { session: false }), 

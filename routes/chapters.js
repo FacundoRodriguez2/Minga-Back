@@ -12,10 +12,11 @@ import getChapter from '../controllers/chapters/get_chapter.js'
 let router = express.Router();
 const {create}=createController
 const {get}=getChapter
-
+const {showOne} = getOneChapterController
 
 
 router.get('/',get)
+router.get('/:id', showOne)
 router.post('/',passport.authenticate('jwt',{session:false}),validator(Schema),existsOrder,nextOrder,addFrontPhoto,create)
 
 
