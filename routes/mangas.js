@@ -15,7 +15,7 @@ const {get_one}=get_manga
 const { get_mangas_from_author } = get_mangas
 
 router.get("/", show)
-router.post("/", passport.authenticate('jwt', { session: false }), validator(schema), existsTittle ,create)
+router.post("/", passport.authenticate('jwt', { session: false }), validator(schema), existsTitle ,create)
 router.get(
     "/authors/:author_id", 
     passport.authenticate("jwt", { session: false }), 
