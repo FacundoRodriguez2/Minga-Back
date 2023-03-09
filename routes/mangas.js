@@ -4,10 +4,12 @@ import showcontroller from "../controllers/categories/show.js"
 import existsTittle from "../middlewares/exists_tittle.js"
 import passport from "../middlewares/passport.js";
 import get_mangas from "../controllers/manga/get_mangas_from_author.js"
+import get_manga from '../controllers/manga/get_one.js'
 
 let router = express.Router();
 let {create} = createcontroller
 let {show}= showcontroller
+const {get_one}=get_manga
 const { get_mangas_from_author } = get_mangas
 
 router.get("/", show)
@@ -17,7 +19,7 @@ router.get(
     passport.authenticate("jwt", { session: false }), 
     get_mangas_from_author 
     )
-
+    router.get('/:id',passport.authenticate("jwt", { session: false }),get_one)
 
 
 
