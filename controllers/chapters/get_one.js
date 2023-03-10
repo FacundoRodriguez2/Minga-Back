@@ -2,10 +2,10 @@ import Chapter from "../../models/Chapter.js"
 
 const controller = {
     showOne: async (req, res, next) => {
-        console.log(req.params)
+        console.log(req)
         try {
             let chapter = await Chapter.findOne({_id: req.params.id})
-            .select('pages -_id')
+            .select('-_id -createdAt -updatedAt -__v')
             .sort({pages: 1})
             return res.status(200).json({
                 success: true,
@@ -13,7 +13,7 @@ const controller = {
               }); 
         } catch (error) {
             next()
-
+            
         }
     }
     
