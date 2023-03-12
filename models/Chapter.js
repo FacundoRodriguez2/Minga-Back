@@ -11,4 +11,6 @@ const schema = new mongoose.Schema(
     }
 )
 
-export const Chapter = mongoose.model('chapters', schema)
+const Chapter = mongoose.model('chapters', schema)
+
+export default Chapter
