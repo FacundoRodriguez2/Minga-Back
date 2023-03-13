@@ -1,10 +1,10 @@
 import express from 'express'
 import showcontroller from "../controllers/categories/show.js"
 
-const { show } = showcontroller
+const { all } = showcontroller
 
 let router = express.Router()
 
-router.get("/", show)
+router.get("/", all)
 
 export default router

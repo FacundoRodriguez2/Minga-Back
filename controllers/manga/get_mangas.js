@@ -28,7 +28,7 @@ const controller = {
             .status(200) 
             .json({
                 success: true,
-                message: 'aca deberias ver todos los capitulos',
+                message: 'You see all the chapters here',
                 mangas
             })
     }
