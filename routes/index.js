@@ -4,6 +4,8 @@ import mangaRouter from "./mangas.js";
 import chapterRouter from "./chapters.js";
 import companies from "./companies.js"
 import authors from "./authors.js";
+import categoriesRouter from './categories.js';
+
 let router = express.Router();
 
 router.get("/", function (req, res, next) {
@@ -15,5 +17,6 @@ router.use("/auth", userRouter);
 router.use("/authors", authors);
 router.use("/chapters", chapterRouter);
 router.use("/companies", companies);
+router.use("/categories", categoriesRouter)
 
 export default router;
