@@ -1,21 +1,36 @@
 import Chapter from "../../models/Chapter.js"
 
 const controller = {
+
     showOne: async (req, res, next) => {
-        console.log(req)
         try {
-            let chapter = await Chapter.findOne({_id: req.params.id})
-            .select('-_id -createdAt -updatedAt -__v')
-            .sort({pages: 1})
-            return res.status(200).json({
-                success: true,
-                chapter
-              }); 
-        } catch (error) {
-            next()
+
+            // Busco por el ID
+            let chapter = await Chapter.findById(req.params.id)
+                .select('-__v -updatedAt -createdAt');
+
+            // Tengo que buscar el siguiente a partir del chapter ya encontrado
+            let next = await Chapter.findOne({manga_id: chapter.manga_id, order: chapter.order + 1 })
+            let prev = await Chapter.findOne({manga_id: chapter.manga_id, order: chapter.order - 1 })
             
+
+            if (chapter) {
+                return res.status(200).json({
+                    success: true,
+                    chapter,
+                    prev: prev?._id,
+                    next: next._id
+                })
+            }
+
+            return res.status(404).json({
+                success: false,
+            })
+
+        } catch (error) {
+            next(error)
         }
     }
-    
 }
+
 export default controller
