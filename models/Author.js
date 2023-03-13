@@ -1,6 +1,6 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
-const authorSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
         name: { type: String, require: true },
         last_name: { type: String },
@@ -8,14 +8,12 @@ const authorSchema = new mongoose.Schema(
         country: { type: String, require: true },
         date: { type: Date },
         photo: { type: String, require: true },
-        user_id: { type: mongoose.Types.ObjectId, ref: "users", require: true },
-        active: { type: Boolean, require: true },
-    },
-    { timestamps: true }
+        user_id: { type: mongoose.Types.ObjectId, ref: 'users', require: true },
+        active: { type: Boolean, require: true }
+    },{
+        timestamps: true
+    }
 )
 
-
-
-let Author = mongoose.model("authors", authorSchema)
-
- export default Author
+const Author = mongoose.model('authors', schema)
+export default Author
