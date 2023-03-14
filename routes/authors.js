@@ -9,17 +9,8 @@ const router = express.Router()
 const { create } = authorCreate
 const { get_one } = get_author
 
-router.post(
-    "/",
-    passport.authenticate("jwt", { session: false }),
-    validator(schema),
-    create
-)
+router.post( "/", passport.authenticate("jwt", { session: false }), validator(schema), create )
 
-router.get(
-    "/:id", 
-    passport.authenticate("jwt", { session: false }), 
-    get_one
-    )
+router.get( "/:id", passport.authenticate("jwt", { session: false }), get_one )
 
 export default router
