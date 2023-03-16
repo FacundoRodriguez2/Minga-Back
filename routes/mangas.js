@@ -16,12 +16,11 @@ const { read } = getMangas
 
 
 router.post("/", passport.authenticate('jwt', { session: false }), validator(schema), existsTitle ,create)
-router.get(
-    "/authors/:author_id", 
-    passport.authenticate("jwt", { session: false }), 
-    get_mangas_from_author 
-    )
-    router.get('/:id',passport.authenticate("jwt", { session: false }),get_one)
+
+router.get( "/authors/:author_id", passport.authenticate("jwt", { session: false }),get_mangas_from_author )
+    
+router.get('/:id',passport.authenticate("jwt", { session: false }),get_one)
+
 router.get('/', passport.authenticate('jwt', { session:false }), read)
 
 
