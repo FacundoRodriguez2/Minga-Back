@@ -19,7 +19,7 @@ const controller = {
                     success: true,
                     chapter,
                     prev: prev?._id,
-                    next: next._id
+                    next: next?._id
                 })
             }
 
