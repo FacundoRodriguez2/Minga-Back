@@ -6,7 +6,11 @@ const get_manga={
         const { id } = req.params
         console.log(id)
         try{
-            let comic = await Manga.findById({_id: id}, "-_id -user_id")
+            let comic = await Manga.findById({_id: id},)
+            .select("title cover_photo description author_id category_id _id")
+            .populate("category_id","name")
+            .populate("company_id","name")
+            
             if(comic){
                 res.status(200).json({
                     success: true,
