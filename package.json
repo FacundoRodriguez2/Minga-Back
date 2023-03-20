@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "data_categories": "node ./models/data/categories",
-    "test-chapters": "mocha ./test/chapters.test.js --timeout 5000"
+    "test-chapters": "mocha ./test/chapters.test.js --timeout 5000",
+    "test-mangasid":"mocha ./test/mangasid.test.js"
   },
   "type": "module",
   "dependencies": {
