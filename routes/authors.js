@@ -21,7 +21,7 @@ router.post( "/", passport.authenticate("jwt", { session: false }), validator(sc
 
 router.put( "/me", passport.authenticate("jwt", { session: false }), validator(schema_update),  finds_id, user_is_author, is_active, update_me )
 
-router.get( "/me", passport.authenticate("jwt", { session: false }), finds_id, get_me )
+router.get( "/me", passport.authenticate("jwt", { session: false }), finds_id, user_is_author, get_me )
 
 router.get( "/:id", passport.authenticate("jwt", { session: false }), get_one )
 
