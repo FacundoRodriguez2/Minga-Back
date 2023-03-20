@@ -6,16 +6,9 @@ const controller = {
     get_me: async (req,res,next) => {
         
         try{
-            
-            let query = {}
-            
-            if (req.query.author_id) { query.author_id = req.body.author_id}
-
-               console.log(query)
     
-               const mangas = await Manga.find(query)
+               const mangas = await Manga.find({ author_id: req.body.author_id })
                                          .select("_id author_id title cover_photo category_id ")
-                                         .populate("author_id", "name last_name -_id")
                                          .populate("category_id", "name -_id")
                
 

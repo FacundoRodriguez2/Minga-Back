@@ -1,6 +1,4 @@
 import Manga from "../../models/Manga.js";
-import Author from "../../models/Author.js";
-import Category from "../../models/Category.js"
 
 
 const controller = {
@@ -14,12 +12,14 @@ const controller = {
             )
             if(manga){
                 return  res.status(200)
-                           .json({ manga })
+                           .json({ 
+                            success: true,
+                            message: "Manga updated!"
+                        })
             }
 
         } catch (error) {
             next(error)
-            console.log(error)
         }
 
     } 
