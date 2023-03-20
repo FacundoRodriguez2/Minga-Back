@@ -9,11 +9,7 @@ const controller = {
             
             let query = {}
             
-            if (req.query.author_id) {
-                
-                query.author_id = req.body.author_id
-
-            }
+            if (req.query.author_id) { query.author_id = req.body.author_id}
 
                console.log(query)
     
