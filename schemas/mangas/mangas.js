@@ -27,16 +27,14 @@ let schema = Joi.object({
     cover_photo: Joi
         .string()
         .required()
-        .min(8)
+        .min(5)
         .uri()
-        .messages(
-            {
-                'string.min': 'The photo must be at least 8 characters',
+        .messages({
+                'string.min': 'The photo must be at least 5 characters',
                 'string.empty': 'The photo cannot be empty',
                 'any.required': 'A photo is required',
                 'string.uri': 'A valid URL is necessary'
-            }
-        ),
+            }),
     category_id: Joi
         .objectId()
         .required()
