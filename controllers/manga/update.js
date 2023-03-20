@@ -1,6 +1,4 @@
 import Manga from "../../models/Manga.js";
-import Author from "../../models/Author.js";
-import Category from "../../models/Category.js"
 
 
 const controller = {
@@ -19,7 +17,6 @@ const controller = {
 
         } catch (error) {
             next(error)
-            console.log(error)
         }
 
     } 

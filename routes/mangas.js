@@ -12,6 +12,8 @@ import finds_id from "../middlewares/finds_id.js"
 import is_active from "../middlewares/authors/is_active.js"
 import get_data from "../controllers/manga/get_me.js"
 import update from "../controllers/manga/update.js"
+import destroy from "../controllers/manga/destroy.js"
+import is_property_of from "../middlewares/authors/is_property_of.js";
 
 let router = express.Router();
 let {create} = createcontroller
@@ -20,6 +22,7 @@ const { get_mangas_from_author } = get_mangas
 const { read } = getMangas
 const { get_me } = get_data
 const { update_manga } = update
+const {delete_manga} = destroy
 
 
 
@@ -30,8 +33,10 @@ router.get( "/authors/:author_id", passport.authenticate("jwt", { session: false
 
 router.get("/me", passport.authenticate('jwt', { session: false }), finds_id, get_me)
 
-router.put("/:id", passport.authenticate("jwt", { session: false }), validator(updateMangaSchema), finds_id, is_active, update_manga)
+router.put("/:id", passport.authenticate("jwt", { session: false }), validator(updateMangaSchema), finds_id, is_active, is_property_of, existsTitle, update_manga)
     
+router.delete("/:id", passport.authenticate("jwt", { session: false }), validator(updateMangaSchema), finds_id, is_active, is_property_of, delete_manga)
+
 router.get('/:id',passport.authenticate("jwt", { session: false }), get_one)
 
 router.get('/', passport.authenticate('jwt', { session: false }), read)
