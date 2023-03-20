@@ -12,7 +12,10 @@ const controller = {
             )
             if(manga){
                 return  res.status(200)
-                           .json({ manga })
+                           .json({ 
+                            success: true,
+                            message: "Manga updated!"
+                        })
             }
 
         } catch (error) {

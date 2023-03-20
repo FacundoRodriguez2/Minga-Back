@@ -9,7 +9,6 @@ const controller = {
     
                const mangas = await Manga.find({ author_id: req.body.author_id })
                                          .select("_id author_id title cover_photo category_id ")
-                                         .populate("author_id", "name last_name -_id")
                                          .populate("category_id", "name -_id")
                
 
