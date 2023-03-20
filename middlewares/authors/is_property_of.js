@@ -1,6 +1,6 @@
-import { Author } from "../../models/Author.js"
-import { Manga } from "../../models/Manga.js"
-import { Company } from "../../models/Company.js"
+import  Author  from "../../models/Author.js"
+import  Manga  from "../../models/Manga.js"
+import  Company  from "../../models/Company.js"
 
 async function is_property_of(req, res, next) {
   const manga = await Manga.findById(req.params.id)

@@ -23,6 +23,7 @@ router.put( "/me", passport.authenticate("jwt", { session: false }), validator(s
 
 router.get( "/me", passport.authenticate("jwt", { session: false }), finds_id, user_is_author, get_me )
 
+
 router.get( "/:id", passport.authenticate("jwt", { session: false }), get_one )
 
 

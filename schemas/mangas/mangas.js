@@ -1,22 +1,48 @@
-import joi from "joi-oid"
+import Joi from "joi-oid"
 
-let schema = joi.object({
-    title: joi.string().required().min(6).max(40).message({
-        "any.required": "Name is a required field.",
-        "string.empty": "Name cannot be an empty field.",
-        "string.min": "Name must have a minimum length of {#limit}",
-        "string.max": "Name must have a maximum length of {#limit}",
-        "string.base": "Name must be a type of 'text'",
-    }),
-    category: joi.string().required(),
+let schema = Joi.object({
 
-    description: joi.string().required().min(20).max(100).message({
-        "any.required": "Name is a required field.",
-        "string.empty": "Name cannot be an empty field.",
-        "string.min": "Name must have a minimum length of {#limit}",
-        "string.max": "Name must have a maximum length of {#limit}",
-        "string.base": "Name must be a type of 'text'",
-    }),
+    title: Joi
+        .string()
+        .required()
+        .min(4)
+        .max(30)
+        .messages({
+            'string.min': 'The title must be at least 4 characters long',
+            'string.max': 'The title must be 30 characters long max',
+            'string.empty': 'A title is required',
+            'any.required': 'A title is required'
+        }),
+    description: Joi
+        .string()
+        .required()
+        .min(8)
+        .max(300)
+        .messages({
+            'string.min': 'The Description must be at least 20 characters long',
+            'string.max': 'The Description must be 100 characters long max',
+            'string.empty': 'A Description is required',
+            'any.required': 'A Description is required'
+        }),
+    cover_photo: Joi
+        .string()
+        .required()
+        .min(5)
+        .uri()
+        .messages({
+                'string.min': 'The photo must be at least 5 characters',
+                'string.empty': 'The photo cannot be empty',
+                'any.required': 'A photo is required',
+                'string.uri': 'A valid URL is necessary'
+            }),
+    category_id: Joi
+        .objectId()
+        .required()
+        .messages({
+            'invalid': 'category_id is not an objectId'
+        }),
 
 })
+
+
 export default schema
