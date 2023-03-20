@@ -5,15 +5,16 @@ import schema from "../schemas/mangas/mangas.js"
 import updateMangaSchema from "../schemas/mangas/updateManga.js";
 import existsTitle from "../middlewares/exists_title.js"
 import passport from "../middlewares/passport.js";
+import finds_id from "../middlewares/finds_id.js"
+import is_active from "../middlewares/authors/is_active.js"
+import is_property_of from "../middlewares/authors/is_property_of.js";
 import get_mangas from "../controllers/manga/get_mangas_from_author.js"
 import get_manga from '../controllers/manga/get_one.js'
 import getMangas from '../controllers/manga/get_mangas.js'
-import finds_id from "../middlewares/finds_id.js"
-import is_active from "../middlewares/authors/is_active.js"
 import get_data from "../controllers/manga/get_me.js"
 import update from "../controllers/manga/update.js"
 import destroy from "../controllers/manga/destroy.js"
-import is_property_of from "../middlewares/authors/is_property_of.js";
+
 
 let router = express.Router();
 let {create} = createcontroller
@@ -26,7 +27,6 @@ const {delete_manga} = destroy
 
 
 
-
 router.post("/", passport.authenticate('jwt', { session: false }), validator(schema), existsTitle ,create)
 
 router.get( "/authors/:author_id", passport.authenticate("jwt", { session: false }), get_mangas_from_author )
@@ -35,7 +35,7 @@ router.get("/me", passport.authenticate('jwt', { session: false }), finds_id, ge
 
 router.put("/:id", passport.authenticate("jwt", { session: false }), validator(updateMangaSchema), finds_id, is_active, is_property_of, existsTitle, update_manga)
     
-router.delete("/:id", passport.authenticate("jwt", { session: false }), validator(updateMangaSchema), finds_id, is_active, is_property_of, delete_manga)
+router.delete("/:id", passport.authenticate("jwt", { session: false }), finds_id, is_active, is_property_of, delete_manga)
 
 router.get('/:id',passport.authenticate("jwt", { session: false }), get_one)
 
