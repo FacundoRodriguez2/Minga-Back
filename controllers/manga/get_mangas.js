@@ -18,7 +18,7 @@ const controller = {
         }
 
         let mangas = await Manga.find(query)
-            .select("title category_id cover_photo -_id")
+            .select("title category_id cover_photo _id")
             .populate("category_id", "name -_id")
             .sort({ title: 1 })
             .skip( pagination.page > 0 ? (pagination.page-1)*pagination.limit : 0 )
