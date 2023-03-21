@@ -11,10 +11,11 @@ const get_chapters={
                 pagination.page = req.query.page
         }    
         try{
-                let chapter = await Chapter.find(chapters).select('title order cover_photo -_id')
+                let chapter = await Chapter.find(chapters).select('title order manga_id -_id')
                 .sort({order:1})
                 .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
                 .limit(pagination.limit > 0 ? pagination.limit : 0)
+                .populate("manga_id","cover_photo")
                 if(chapter.length>0){    
                  res.status(200).json({
                         success: true,

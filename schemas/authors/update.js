@@ -2,6 +2,11 @@ import Joi from "joi-oid"
 
 const schema = Joi.object({
     name: Joi.string().min(3).max(140).messages({
+<<<<<<< HEAD
+=======
+        "any.required": "Name is a required field.",
+        "string.empty": "Name cannot be an empty field.",
+>>>>>>> bc5b1698a50a8030be301eef35e53fb5223c5180
         "string.min": "Name must have a minimum length of {#limit}",
         "string.max": "Name must have a maximum length of {#limit}",
         "string.base": "Name must be a type of 'text'",
