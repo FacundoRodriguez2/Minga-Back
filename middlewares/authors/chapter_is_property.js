@@ -1,10 +1,12 @@
 import  Author  from "../../models/Author.js"
 import Manga  from "../../models/Manga.js"
 import  Company  from "../../models/Company.js"
+import Chapter from '../../models/Chapter.js'
 
-async function is_property_of(req, res, next) {
-  const manga = await Manga.findById(req.params.id)
-  
+async function chapter_is_property(req, res, next) {
+  const chapter = await Chapter.findById(req.params.id)
+  const manga = await Manga.findById(chapter.manga_id)
+  console.log(chapter._id)
   if (!manga) {
     return res.status(404).json({
       success: false,
@@ -44,4 +46,4 @@ async function is_property_of(req, res, next) {
   return next()
 }
 
-export default is_property_of
+export default chapter_is_property
