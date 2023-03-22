@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 const schema = new mongoose.Schema(
     {
         mail: { type: String, require: true },
+        name: { type: String, require: true },
+        las_name: { type: String, require: true },
         password: { type: String, require: true },
         photo: { type: String, require: true },
         is_online: { type: Boolean, require: true },
