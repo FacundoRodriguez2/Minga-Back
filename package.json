@@ -8,7 +8,9 @@
     "data_categories": "node ./models/data/categories",
     "test-chapters": "mocha ./test/chapters.test.js --timeout 5000",
     "test-mangasid":"mocha ./test/mangasid.test.js",
-    "data":"node ./models/data/data"
+    "data":"node ./models/data/data",
+    "test-01": "mocha ./test/test-01.test.js"
+
   },
   "type": "module",
   "dependencies": {
