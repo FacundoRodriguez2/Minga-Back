@@ -17,7 +17,7 @@ const get_manga={
                     response: comic,
                 })
             }else{
-                res.status(400).json({
+                res.status(404).json({
                     success: false,
                     response: "Error obtaining Comic",
                 })
