@@ -1,20 +1,18 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-let schema = new mongoose.Schema(
-  {
-    tittle: { type: String, required: true},
-    category: { type: String, required: true},
-    description: { type: String, required: true },
-    cover_photo: { type: String, required: true },
-    author_id: { type: String, required: true,  ref: "authors" },
-    company_id: { type: String,  ref: "companies" },
-    category_id: { type: String, required: true,  ref: "categories" },
-  },
-  {
-    timestamps: true,
-  }
-);
+const schema = new mongoose.Schema(
+    {
+        author_id: { type: mongoose.Types.ObjectId,ref:"authors",require: true },
+        company_id: { type: mongoose.Types.ObjectId,ref:"companies"},
+        title: { type: String, required: true },
+        cover_photo: { type: String, required: true },
+        description: { type: String, required: true },
+        category_id: { type: mongoose.Types.ObjectId,ref:"categories", require: true }
+    },{
+        timestamps: true
+    }
+)
 
-let Manga = mongoose.model("mangas", schema);
+const Manga = mongoose.model('mangas', schema)
 
-export default Manga;
+export default Manga

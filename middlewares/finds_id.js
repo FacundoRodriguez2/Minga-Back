@@ -4,7 +4,11 @@ async function finds_id(req,res,next){
     const author = await Author.findOne({user_id: req.user._id})
     if(author){
         req.body.author_id = author._id
+<<<<<<< HEAD
         next()
+=======
+        return next()
+>>>>>>> 7e5862e77731491999fbc7a5f04e3be0294335fc
     }
     return res.status(400).json({
         success: false,
