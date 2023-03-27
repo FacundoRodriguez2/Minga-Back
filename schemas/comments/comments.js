@@ -1,6 +1,9 @@
 import Joi from "joi-oid"
 
 const schema_comment = Joi.object({
+    chapter_id: Joi
+        .objectId()
+        .required(),
 
     text: Joi
         .string()

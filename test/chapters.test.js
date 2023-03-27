@@ -7,10 +7,10 @@ const expect = chai.expect
 
 describe('chapters test', () => {
     
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTA3N2M5YjlkODg2YzIxYTdiNDJjYyIsImlhdCI6MTY3OTQ4OTc3MSwiZXhwIjoxNjc5NTc2MTcxfQ.HLx7IyLbPTQl-6M6pTT3Am1tv7N0HXOAzVIyL-3nngY"
     
     it ('POST api/chapters verificar que pages es un array de strings', async () => {
  
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTQ5YjRjODhiMjNlYjJlNTNjMDlmNCIsImlhdCI6MTY3OTA3MjEzOCwiZXhwIjoxNjc5MTU4NTM4fQ.UYkJB_FPhydGor6ZFUc9myl-mC909Kd7szlcOctnXfs"
         
         const chapter = {
                          manga_id: "641077cab9d886c21a7b42ed",
@@ -28,7 +28,53 @@ describe('chapters test', () => {
                                 .auth(token, {type: "bearer"})
         
     })
+
+    it("verifica que se pase el token por headers", async () => {
+        const response = await request(app)
+          .get("/api/chapters/")
+          .auth(token, { type: "bearer" });
+
+        expect(response.request.header.Authorization).to.equal(
+          `Bearer ${token}`
+        );
+      });
+
+      it('GET api/chapters/:id verificar que la respuesta tiene alguna propiedad un array de url (pages)', async () => {
+        const response = await request(app)
+                                .get('/api/chapters/641077cab9d886c21a7b42ef')
+                                .set('Accept', "application/json")
+                                .auth(token, { type: "bearer" });
+
+            expect(response.body.chapter).to.have.property("pages"); // Verificar que la respuesta tenga una propiedad "pages"
+            expect(response.body.chapter.pages).to.be.an("array"); // Verificar que la propiedad "pages" sea un array
+            expect(response.body.chapter.pages).to.satisfy((pages) => {  // Verificar que cada elemento del array sea una URL
+              return pages.every((page) => {
+                return typeof page === "string" && /^https?:\/\//.test(page);
+              });
+            });
+    })
+
+    it("POST api/chapters verificar que la respuesta devuelve alguna propiedad con el capitulo que ha sido creado", async () => {
+
   
+         const chapters = {
+           manga_id: "641077cab9d886c21a7b42ed",
+           title: `Manga prueba test`,
+           pages: [
+            "https://i.postimg.cc/jScjzvjQ/alice-in-borderland-002-01.jpg", "https://i.postimg.cc/rppwgW06/alice-in-borderland-002-02.jpg", "https://i.postimg.cc/pd1XSTzm/alice-in-borderland-002-03.jpg", "https://i.postimg.cc/VLjvNzQh/alice-in-borderland-002-04.jpg", "https://i.postimg.cc/8zN5JxTz/alice-in-borderland-002-05.jpg", "https://i.postimg.cc/vBgHwst3/alice-in-borderland-002-06.jpg", "https://i.postimg.cc/Bb2StByF/alice-in-borderland-002-07.jpg",
+           ],
+         };
+
+         const response = await request(app)
+           .post("/api/chapters")
+           .send(chapters)
+           .auth(token, { type: "bearer" });
+  
+           assert.equal(response.status, 201);
+           assert.equal(response.body.chapter.title, chapters.title);
+  
+       });
+
 })
 
 
