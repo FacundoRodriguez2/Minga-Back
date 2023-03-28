@@ -2,21 +2,57 @@ import User from "../../models/User.js";
 import crypto from "crypto";
 import bcryptjs from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
+import transporter from "../../config/verificationMail.js"
+import { clearScreenDown } from "readline";
 
 const controller = {
+  
   sign_up: async (req, res, next) => {
+    const user = {
+      name: req.body.name,
+      mail: req.body.mail,
+      password: req.body.password,
+      photo: req.body.photo,
+      is_online: false,
+      is_admin: false,
+      is_author: false,
+      is_company: false,
+      is_verified: false,
+      verify_code: crypto.randomBytes(10).toString("hex"),
+      password: bcryptjs.hashSync(req.body.password, 10),
+    }
     try {
-      req.body.is_online = false;
-      req.body.is_admin = false;
-      req.body.is_author = false;
-      req.body.is_company = false;
-      req.body.is_verified = true;
-      req.body.verify_code = crypto.randomBytes(10).toString("hex");
-      req.body.password = bcryptjs.hashSync(req.body.password, 10);
-      await User.create(req.body);
+      await User.create(user) 
+      
+    const frontRoute = process.env.FRONT
+    const message = {
+      from: process.env.EMAIL_MAILING,
+      to: user.mail,
+      subject: "User Validation",
+      text: "Validate your user by clicking on the following link",
+      html: `<p><br>Welcome to Minga App ${user.name} <br>
+             <br> Discover manga, manhua and manhwa, track your progress, have fun, read manga. <br> 
+             Press the following link to validate your user: <a href="${frontRoute}/${user.verify_code}">Click here</a></p> <br>
+             <p style="color: grey;">--<br>
+             Kind regards,<br>
+             Minga's team<br>
+             minga.app@gmail.com<br>
+             www.minga.com<br>
+             <br>
+             Thanks for using our app! If you have any questions or suggestions, please do not hesitate to contact us.<br>
+             <br>
+             Minga App</p>`
+    }
+    
+    await transporter.sendMail(message)
+   
+      req.body.success = true
+      req.body.sc = 201
+      req.body.data = 'User created'
       return res.status(200).json({ message: "User registered!" });
+      
     } catch (error) {
-      next(error);
+      next(error)
     }
   },
 
@@ -49,6 +85,26 @@ const controller = {
       return res.status(200).json({ message: "User offline!" });
     } catch (error) {
       next(error);
+    }
+  },
+
+  verifyCode: async (req, res, next) => {
+    const { verify_code } = req.params
+    try {
+        const user = await User.find({ verify_code: verify_code });
+        if (user.length > 0) {
+            const userId = user[0]._id;
+            await User.findOneAndUpdate(
+                { _id: userId },
+                { is_verified: true },
+                { new: true }
+            )
+            return res.status(200).json({ message: "User successfully verified!!!"});
+        } else { 
+            return res.status(400).json({ message: "Failed to verify user!!!"});
+        }
+    } catch (error) {
+        next(error)
     }
   },
 

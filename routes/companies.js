@@ -20,5 +20,6 @@ router.get('/', read_all)
 router.get('/admin',read_all_active)
 router.put('/admin/:id',update_active)
 
+router.post("/",  passport.authenticate("jwt", { session: false }), validator( schema ), create)
 
 export default router
