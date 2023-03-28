@@ -3,17 +3,20 @@ import controller from '../controllers/auth/auth.js'
 import validator from '../middlewares/validator.js'
 import schemaSignUp from '../schemas/users/usersSignUp.js'
 import schemaSignIn from '../schemas/users/usersSignIn.js'
+import googleSignIn from '../schemas/users/googleSignIn.js'
 import accountExistsSignUp from '../middlewares/accountExistsSignUp.js'
 import accountExistsSignIn from '../middlewares/accountExistsSignIn.js'
 import accountHasBeenVerified from '../middlewares/accountHasBeenVerified.js'
 import passwordIsOk from '../middlewares/passwordIsOk.js'
 import passport  from '../middlewares/passport.js'
 
-const { sign_up, sign_in, sign_out, token, verifyCode } = controller
+const { sign_up, sign_in, sign_out, token, verifyCode, sign_up_google } = controller
 
 let router = express.Router()
 
 router.post('/signup', accountExistsSignUp, validator(schemaSignUp), sign_up)
+
+router.post('/google', validator(googleSignIn), sign_up_google)
 
 router.post('/signin', accountExistsSignIn, validator(schemaSignIn), accountHasBeenVerified, passwordIsOk, sign_in)
 
