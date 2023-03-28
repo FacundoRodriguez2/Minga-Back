@@ -10,11 +10,20 @@ import finds_id from "../middlewares/finds_id.js"
 import update_author from "../controllers/authors/update.js"
 import is_active from "../middlewares/authors/is_active.js"
 import user_is_author from "../middlewares/users/user_is_author.js"
+import readActive from '../controllers/authors/read_all_active.js'
+import updateActive from '../controllers/authors/update_active.js'
+
+
+
 const router = express.Router()
+
 const { create } = authorCreate
 const { get_one } = get_author
 const { get_me } = get_authors
 const { update_me } = update_author
+const { read_all_active } = readActive
+const { update_active } = updateActive
+
 
 
 router.post( "/", passport.authenticate("jwt", { session: false }), validator(schema_create), create )
@@ -24,6 +33,10 @@ router.put( "/me", passport.authenticate("jwt", { session: false }), validator(s
 router.get( "/me", passport.authenticate("jwt", { session: false }), finds_id, user_is_author, get_me )
 
 router.get( "/:id", passport.authenticate("jwt", { session: false }), get_one )
+
+
+router.get('/admin/prueba', read_all_active)
+router.put('/admin/prueba/:id', update_active)
 
 
 
