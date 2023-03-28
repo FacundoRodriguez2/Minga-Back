@@ -8,7 +8,10 @@ import accountExistsSignIn from '../middlewares/accountExistsSignIn.js'
 import accountHasBeenVerified from '../middlewares/accountHasBeenVerified.js'
 import passwordIsOk from '../middlewares/passwordIsOk.js'
 import passport  from '../middlewares/passport.js'
+import authorRole from '../controllers/auth/update.js'
 
+
+const {update} = authorRole
 const { sign_up, sign_in, sign_out, token, verifyCode } = controller
 
 let router = express.Router()
@@ -18,6 +21,7 @@ router.post('/signup', accountExistsSignUp, validator(schemaSignUp), sign_up)
 router.post('/signin', accountExistsSignIn, validator(schemaSignIn), accountHasBeenVerified, passwordIsOk, sign_in)
 
 router.post('/token', passport.authenticate('jwt', { session: false}), token)
+router.put('/role/author/:id', update )
 
 router.post('/signout', passport.authenticate('jwt', { session: false }), sign_out)
 
