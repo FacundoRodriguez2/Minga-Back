@@ -3,7 +3,6 @@ import crypto from "crypto";
 import bcryptjs from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import transporter from "../../config/verificationMail.js"
-import { clearScreenDown } from "readline";
 
 const controller = {
   
@@ -51,6 +50,43 @@ const controller = {
       req.body.data = 'User created'
       return res.status(200).json({ message: "User registered!" });
       
+    } catch (error) {
+      next(error)
+    }
+  },
+
+  sign_up_google: async (req, res, next) => {
+    const data = {
+      name: req.body.name,
+      last_name: req.body.name,
+      mail: req.body.mail,
+      photo: req.body.photo,
+      is_online: true,
+      is_admin: false,
+      is_author: false,
+      is_company: false,
+      is_verified: true,
+      password: bcryptjs.hashSync(req.body.password, 10),
+    }
+    try {
+      const user= await User.findOne({
+        mail: req.body.mail
+      })
+      console.log(user)
+      if (user){
+        user.password = null;
+        const token = jsonwebtoken.sign({ id: user._id }, process.env.KSECRET, {
+          expiresIn: 60 * 60 * 24,
+        });
+        return res.status(200).json({ token, user });
+      }else{
+        const userCreate = await User.create(data)
+        userCreate.password = null;
+        const token = jsonwebtoken.sign({ id: userCreate._id }, process.env.KSECRET, {
+          expiresIn: 60 * 60 * 24,
+        });
+        return res.status(200).json({ token, user: userCreate });
+      }
     } catch (error) {
       next(error)
     }
