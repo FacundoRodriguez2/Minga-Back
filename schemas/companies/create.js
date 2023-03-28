@@ -21,7 +21,9 @@ const schema = Joi.object({
         "string.empty": "Description cannot be an empty field.",
         "string.min": "Description must have a minimum length of {#limit}",
         "string.base": "Description must be a type of 'text'",
-    })
+    }),
+    user_id: Joi.string(),
+    active: Joi.boolean(),
 })
 
 export default schema
