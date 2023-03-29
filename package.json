@@ -7,10 +7,9 @@
     "dev": "nodemon ./bin/www",
     "data_categories": "node ./models/data/categories",
     "test-chapters": "mocha ./test/chapters.test.js --timeout 5000",
-    "test-mangasid":"mocha ./test/mangasid.test.js",
-    "data":"node ./models/data/data",
+    "test-mangasid": "mocha ./test/mangasid.test.js",
+    "data": "node ./models/data/data",
     "test-01": "mocha ./test/test-01.test.js"
-
   },
   "type": "module",
   "dependencies": {
@@ -25,6 +24,7 @@
     "joi": "^17.8.3",
     "joi-oid": "^1.1.2",
     "jsonwebtoken": "^9.0.0",
+    "mercadopago": "^1.5.15",
     "mongoose": "^6.10.0",
     "morgan": "~1.9.1",
     "nodemailer": "^6.9.1",
