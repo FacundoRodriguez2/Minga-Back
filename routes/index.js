@@ -6,6 +6,7 @@ import companies from "./companies.js"
 import authors from "./authors.js";
 import categoriesRouter from './categories.js';
 import commentsRouter from './comments.js'
+import paymentRouter from './payments.js'
 
 let router = express.Router();
 
@@ -20,5 +21,6 @@ router.use("/chapters", chapterRouter);
 router.use("/companies", companies);
 router.use("/categories", categoriesRouter)
 router.use("/comments", commentsRouter)
+router.use("/payments", paymentRouter)
 
 export default router;
