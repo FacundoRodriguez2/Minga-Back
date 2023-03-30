@@ -1,11 +1,12 @@
 import express from "express"
 import mercadopago from "mercadopago"
+import passport from "../middlewares/passport.js";
 
 const router = express.Router()
 
 mercadopago.configure({ access_token: process.env.MERCADOPAGO_KEY })
 
-router.post("/", (req, res) => {
+router.post("/", passport.authenticate('jwt', { session: false }), (req, res) => {
     const don = req.body
     let preference = {
         items: [ {
@@ -14,7 +15,7 @@ router.post("/", (req, res) => {
             currency_id: 'ARS',
             picture_url: don.image,
             descriptopn: don.description,
-            category_id: 'donion',
+            category_id: 'donation',
             quantity: 1,
             unit_price: don.price,
 
