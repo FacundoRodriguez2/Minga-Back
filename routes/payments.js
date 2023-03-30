@@ -15,7 +15,7 @@ router.post("/", passport.authenticate('jwt', { session: false }), (req, res) =>
             currency_id: 'ARS',
             picture_url: don.image,
             descriptopn: don.description,
-            category_id: 'donion',
+            category_id: 'donation',
             quantity: 1,
             unit_price: don.price,
 
